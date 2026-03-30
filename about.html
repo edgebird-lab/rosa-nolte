@@ -1,0 +1,35 @@
+---
+layout: default
+title: "Über mich – Rosa Nolte"
+---
+{% assign p = site.data.profil %}
+
+<button class="burger-btn" id="burger-btn" aria-label="Navigation öffnen">
+  <span></span><span></span><span></span>
+</button>
+
+<div class="about-page">
+
+  <div class="about-grid">
+    <div class="about-img-col">
+      {% if p.portrait and p.portrait != "" %}
+      <img src="{{ p.portrait | relative_url }}" alt="{{ p.vorname }} {{ p.nachname }}" class="about-portrait" />
+      {% else %}
+      <div class="about-portrait-placeholder"></div>
+      {% endif %}
+    </div>
+
+    <div class="about-text-col">
+      <p class="about-label">Über mich</p>
+      <h1 class="about-name">{{ p.vorname }}<br/>{{ p.nachname }}</h1>
+      <div class="about-body">
+        <p class="about-lead">{{ p.about_lead }}</p>
+        <p>{{ p.about_text }}</p>
+      </div>
+      {% if p.email and p.email != "" %}
+      <a href="mailto:{{ p.email }}" class="about-cta">Kontakt aufnehmen →</a>
+      {% endif %}
+    </div>
+  </div>
+
+</div>

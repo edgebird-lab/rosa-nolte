@@ -1,0 +1,60 @@
+<!-- Burger Button (Mobile) -->
+<button class="burger-btn" id="burger-btn" aria-label="Navigation öffnen">
+  <span></span><span></span><span></span>
+</button>
+
+<div class="galerie-page">
+
+  <header class="galerie-header">
+    <a href="/" class="zurueck-link" aria-label="Zurück zur Übersicht">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Projekte
+    </a>
+    <h1 class="galerie-titel">{{ page.kategorie_name }}</h1>
+  </header>
+
+  {% assign bilder_list = "" | split: "" %}
+  {% assign bilder_quelle = site.data.bilder[page.kategorie_slug] %}
+  {% for item in bilder_quelle %}
+    {% assign bilder_list = bilder_list | push: item[1] %}
+  {% endfor %}
+  {% assign bilder_sorted = bilder_list | sort: "reihenfolge" %}
+
+  {% if bilder_sorted.size > 0 %}
+  <div class="galerie-grid" id="galerie-grid">
+    {% for bild in bilder_sorted %}
+    <figure class="galerie-item" data-index="{{ forloop.index }}">
+      <img
+        src="{{ bild.datei | relative_url }}"
+        alt="{{ bild.titel | default: page.kategorie_name }}"
+        loading="{% if forloop.index <= 3 %}eager{% else %}lazy{% endif %}"
+      />
+      {% if bild.beschreibung and bild.beschreibung != "" %}
+      <figcaption class="galerie-caption">{{ bild.beschreibung }}</figcaption>
+      {% endif %}
+    </figure>
+    {% endfor %}
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-modal="true" role="dialog">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Schließen">✕</button>
+    <button class="lightbox-prev" id="lightbox-prev" aria-label="Vorheriges Bild">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="lightbox-img-wrap">
+      <img src="" alt="" id="lightbox-img" />
+      <p class="lightbox-caption" id="lightbox-caption"></p>
+    </div>
+    <button class="lightbox-next" id="lightbox-next" aria-label="Nächstes Bild">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+
+  {% else %}
+  <div class="galerie-leer">
+    <p>Noch keine Bilder in dieser Kategorie.</p>
+  </div>
+  {% endif %}
+
+</div>

@@ -1,0 +1,63 @@
+---
+layout: default
+title: "Kontakt – Rosa Nolte"
+---
+{% assign p = site.data.profil %}
+{% assign i = site.data.impressum %}
+
+<button class="burger-btn" id="burger-btn" aria-label="Navigation öffnen">
+  <span></span><span></span><span></span>
+</button>
+
+<div class="kontakt-page">
+
+  <header class="kontakt-header">
+    <p class="about-label">Kontakt</p>
+    <h1 class="kontakt-titel">Lass uns<br/><em>reden.</em></h1>
+  </header>
+
+  <div class="kontakt-grid">
+    <div class="kontakt-info">
+      <p class="kontakt-lead">{{ p.kontakt_text | default: "Für Anfragen, Kooperationen oder ein unverbindliches Gespräch – ich freue mich von dir zu hören." }}</p>
+      <div class="kontakt-methoden">
+        <a href="mailto:{{ p.email }}" class="kontakt-methode">
+          <span class="methode-label">E-Mail</span>
+          <span class="methode-wert">{{ p.email }}</span>
+        </a>
+        {% if p.instagram and p.instagram != "" %}
+        <a href="{{ p.instagram }}" target="_blank" rel="noopener" class="kontakt-methode">
+          <span class="methode-label">Instagram</span>
+          <span class="methode-wert">{{ p.instagram_handle | default: "Instagram" }}</span>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="kontakt-form-wrap">
+      <form class="kontakt-form" action="https://formspree.io/f/xeepgwqe" method="POST">
+        <div class="form-field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Dein Name" required />
+        </div>
+        <div class="form-field">
+          <label for="email">E-Mail</label>
+          <input type="email" id="email" name="email" placeholder="deine@email.de" required />
+        </div>
+        <div class="form-field">
+          <label for="message">Nachricht</label>
+          <textarea id="message" name="message" rows="6" placeholder="Worum geht es?" required></textarea>
+        </div>
+        <button type="submit" class="kontakt-submit">Senden →</button>
+      </form>
+    </div>
+  </div>
+
+  <footer class="kontakt-footer">
+    <a href="/impressum">Impressum</a>
+    <span>·</span>
+    <a href="/datenschutz">Datenschutz</a>
+    <span>·</span>
+    <span>&copy; {{ "now" | date: "%Y" }} {{ p.vorname }} {{ p.nachname }}</span>
+  </footer>
+
+</div>

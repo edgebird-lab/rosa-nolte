@@ -1,0 +1,23 @@
+---
+layout: default
+title: "Datenschutz"
+---
+{% assign i = site.data.impressum %}
+
+<button class="burger-btn" id="burger-btn" aria-label="Navigation öffnen">
+  <span></span><span></span><span></span>
+</button>
+
+<div class="text-page">
+  <p class="about-label">Rechtliches</p>
+  <h1 class="text-page-titel">Datenschutz&shy;erklärung</h1>
+  <div class="text-page-body">
+    <h3>1. Datenschutz auf einen Blick</h3>
+    <p>{{ i.datenschutz_formular }}</p>
+    <h3>2. Hosting</h3>
+    <p>{{ i.datenschutz_hosting }}</p>
+    <h3>3. Ihre Rechte</h3>
+    <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch. Anfragen an: <a href="mailto:{{ i.email }}">{{ i.email }}</a></p>
+    <p><a href="/">← Zurück</a></p>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+---
+layout: default
+title: "Projekte – Rosa Nolte"
+description: "Portfolio von Rosa Nolte – Multimedia Marketing Studentin aus Schmalkalden. Portrait, Tiere, Natur, Architektur, Objekt."
+---
+
+<!-- Burger Button (Mobile) -->
+<button class="burger-btn" id="burger-btn" aria-label="Navigation öffnen">
+  <span></span><span></span><span></span>
+</button>
+
+<!-- ═══ PROJEKTE / KATEGORIEN-ÜBERSICHT ═══ -->
+<div class="projekte-page">
+
+  <header class="projekte-header">
+    <p class="projekte-label">Projekte</p>
+  </header>
+
+  <div class="kategorien-grid" id="kategorien-grid">
+
+    {% assign kat_list = "" | split: "" %}
+    {% for item in site.data.kategorien %}
+      {% assign kat_list = kat_list | push: item[1] %}
+    {% endfor %}
+    {% assign kat_sorted = kat_list | sort: "reihenfolge" %}
+
+    {% for kat in kat_sorted %}
+    {% if kat.aktiv %}
+    <a href="/portfolio/{{ kat.slug }}" class="kategorie-kachel" data-index="{{ forloop.index }}">
+      <div class="kachel-img-wrap">
+        {% if kat.vorschaubild and kat.vorschaubild != "" %}
+        <img
+          src="{{ kat.vorschaubild | relative_url }}"
+          alt="{{ kat.name }}"
+          loading="{% if forloop.index <= 2 %}eager{% else %}lazy{% endif %}"
+        />
+        {% else %}
+        <div class="kachel-placeholder"></div>
+        {% endif %}
+      </div>
+      <div class="kachel-overlay">
+        <span class="kachel-name">{{ kat.name }}</span>
+        {% if kat.beschreibung and kat.beschreibung != "" %}
+        <span class="kachel-desc">{{ kat.beschreibung }}</span>
+        {% endif %}
+      </div>
+    </a>
+    {% endif %}
+    {% endfor %}
+
+  </div>
+
+</div>

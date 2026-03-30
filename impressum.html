@@ -1,0 +1,29 @@
+---
+layout: default
+title: "Impressum"
+---
+{% assign i = site.data.impressum %}
+
+<button class="burger-btn" id="burger-btn" aria-label="Navigation öffnen">
+  <span></span><span></span><span></span>
+</button>
+
+<div class="text-page">
+  <p class="about-label">Rechtliches</p>
+  <h1 class="text-page-titel">Impressum</h1>
+  <div class="text-page-body">
+    <h3>Angaben gemäß § 5 TMG</h3>
+    <p>{{ i.name }}<br/>{{ i.strasse }}<br/>{{ i.ort }}<br/>{{ i.land }}</p>
+    <h3>Kontakt</h3>
+    <p>E-Mail: <a href="mailto:{{ i.email }}">{{ i.email }}</a></p>
+    <h3>Umsatzsteuer-ID</h3>
+    {% if i.ust and i.ust != "" %}
+    <p>USt-IdNr. gemäß § 27a UStG: {{ i.ust }}</p>
+    {% else %}
+    <p>Wird nach Eintragung ergänzt.</p>
+    {% endif %}
+    <h3>Technische Umsetzung</h3>
+    <p>Website erstellt von <a href="https://olbricht-digital.de" target="_blank" rel="noopener">olbricht-digital.de</a></p>
+    <p><a href="/">← Zurück</a></p>
+  </div>
+</div>

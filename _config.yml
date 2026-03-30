@@ -1,0 +1,22 @@
+title: "Rosa Nolte"
+description: "Fotografie – Portrait · Tiere · Natur · Architektur · Objekt"
+author:
+  name: "Rosa Nolte"
+  email: "rosa.sophie.nolte@gmail.com"
+
+url: "https://rosa-nolte.art"
+baseurl: ""
+lang: "de"
+
+markdown: kramdown
+highlighter: rouge
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - node_modules/

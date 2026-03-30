@@ -1,0 +1,159 @@
+# ═══════════════════════════════════════════════
+# Decap CMS – Rosa Nolte
+# Erreichbar unter: https://rosa-nolte.art/admin
+# ═══════════════════════════════════════════════
+
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/img/portfolio"
+public_folder: "/assets/img/portfolio"
+
+locale: "de"
+
+collections:
+
+  # ── 1. Profil ────────────────────────────────
+  - name: "einstellungen"
+    label: "⚙️  Einstellungen"
+    format: yml
+    files:
+
+      - name: "profil"
+        label: "Profil & Texte"
+        file: "_data/profil.yml"
+        fields:
+          - { label: "Vorname",          name: "vorname",      widget: "string" }
+          - { label: "Nachname",         name: "nachname",     widget: "string" }
+          - { label: "Subtitle",         name: "subtitle",     widget: "string",
+              hint: "z.B. Fotografie" }
+          - { label: "Über mich – Einleitungssatz", name: "about_lead", widget: "text" }
+          - { label: "Über mich – zweiter Absatz",  name: "about_text", widget: "text" }
+          - { label: "Kontaktseite – Einleitungstext", name: "kontakt_text", widget: "text" }
+          - { label: "Portrait-Foto",    name: "portrait",     widget: "image", required: false }
+          - { label: "E-Mail",           name: "email",        widget: "string" }
+          - { label: "Instagram-URL",    name: "instagram",    widget: "string", required: false }
+          - { label: "Instagram-Handle", name: "instagram_handle", widget: "string",
+              required: false, hint: "z.B. @sarahmueller" }
+          - { label: "LinkedIn-URL",     name: "linkedin",     widget: "string", required: false }
+
+  # ── 2. Kategorien ────────────────────────────
+  - name: "kategorien"
+    label: "📂  Kategorien"
+    label_singular: "Kategorie"
+    folder: "_data/kategorien"
+    create: true
+    extension: yml
+    format: yml
+    slug: "{{reihenfolge}}-{{slug}}"
+    identifier_field: "name"
+    summary: "{{reihenfolge}}. {{name}}"
+    fields:
+      - { label: "Name",          name: "name",         widget: "string",
+          hint: "z.B. Portrait" }
+      - { label: "URL-Slug",      name: "slug",         widget: "string",
+          hint: "Nur Kleinbuchstaben, keine Leerzeichen. z.B. portrait" }
+      - { label: "Kurzbeschreibung", name: "beschreibung", widget: "string", required: false }
+      - { label: "Vorschaubild (Kachel auf Startseite)", name: "vorschaubild",
+          widget: "image", required: false }
+      - { label: "Reihenfolge",   name: "reihenfolge",  widget: "number", default: 99 }
+      - { label: "Aktiv anzeigen", name: "aktiv",       widget: "boolean", default: true }
+
+  # ── 3. Bilder – Portrait ─────────────────────
+  - name: "bilder-portrait"
+    label: "🖼️  Bilder · Portrait"
+    label_singular: "Bild"
+    folder: "_data/bilder/portrait"
+    create: true
+    extension: yml
+    format: yml
+    slug: "{{reihenfolge}}-{{slug}}"
+    identifier_field: "titel"
+    fields:
+      - { label: "Titel",        name: "titel",       widget: "string" }
+      - { label: "Bilddatei",    name: "datei",       widget: "image" }
+      - { label: "Beschreibung", name: "beschreibung", widget: "string", required: false }
+      - { label: "Reihenfolge",  name: "reihenfolge", widget: "number", default: 99 }
+
+  # ── 4. Bilder – Tiere ────────────────────────
+  - name: "bilder-tiere"
+    label: "🖼️  Bilder · Tiere"
+    label_singular: "Bild"
+    folder: "_data/bilder/tiere"
+    create: true
+    extension: yml
+    format: yml
+    slug: "{{reihenfolge}}-{{slug}}"
+    identifier_field: "titel"
+    fields:
+      - { label: "Titel",        name: "titel",       widget: "string" }
+      - { label: "Bilddatei",    name: "datei",       widget: "image" }
+      - { label: "Beschreibung", name: "beschreibung", widget: "string", required: false }
+      - { label: "Reihenfolge",  name: "reihenfolge", widget: "number", default: 99 }
+
+  # ── 5. Bilder – Natur ────────────────────────
+  - name: "bilder-natur"
+    label: "🖼️  Bilder · Natur"
+    label_singular: "Bild"
+    folder: "_data/bilder/natur"
+    create: true
+    extension: yml
+    format: yml
+    slug: "{{reihenfolge}}-{{slug}}"
+    identifier_field: "titel"
+    fields:
+      - { label: "Titel",        name: "titel",       widget: "string" }
+      - { label: "Bilddatei",    name: "datei",       widget: "image" }
+      - { label: "Beschreibung", name: "beschreibung", widget: "string", required: false }
+      - { label: "Reihenfolge",  name: "reihenfolge", widget: "number", default: 99 }
+
+  # ── 6. Bilder – Architektur ──────────────────
+  - name: "bilder-architektur"
+    label: "🖼️  Bilder · Architektur"
+    label_singular: "Bild"
+    folder: "_data/bilder/architektur"
+    create: true
+    extension: yml
+    format: yml
+    slug: "{{reihenfolge}}-{{slug}}"
+    identifier_field: "titel"
+    fields:
+      - { label: "Titel",        name: "titel",       widget: "string" }
+      - { label: "Bilddatei",    name: "datei",       widget: "image" }
+      - { label: "Beschreibung", name: "beschreibung", widget: "string", required: false }
+      - { label: "Reihenfolge",  name: "reihenfolge", widget: "number", default: 99 }
+
+  # ── 7. Bilder – Objekt ───────────────────────
+  - name: "bilder-objekt"
+    label: "🖼️  Bilder · Objekt"
+    label_singular: "Bild"
+    folder: "_data/bilder/objekt"
+    create: true
+    extension: yml
+    format: yml
+    slug: "{{reihenfolge}}-{{slug}}"
+    identifier_field: "titel"
+    fields:
+      - { label: "Titel",        name: "titel",       widget: "string" }
+      - { label: "Bilddatei",    name: "datei",       widget: "image" }
+      - { label: "Beschreibung", name: "beschreibung", widget: "string", required: false }
+      - { label: "Reihenfolge",  name: "reihenfolge", widget: "number", default: 99 }
+
+  # ── 8. Rechtliches ───────────────────────────
+  - name: "rechtliches"
+    label: "⚖️  Rechtliches"
+    format: yml
+    files:
+      - name: "impressum"
+        label: "Impressum & Datenschutz"
+        file: "_data/impressum.yml"
+        fields:
+          - { label: "Name",           name: "name",     widget: "string" }
+          - { label: "Straße / Nr.",   name: "strasse",  widget: "string" }
+          - { label: "PLZ + Ort",      name: "ort",      widget: "string" }
+          - { label: "Land",           name: "land",     widget: "string" }
+          - { label: "E-Mail",         name: "email",    widget: "string" }
+          - { label: "USt-IdNr.",      name: "ust",      widget: "string", required: false }
+          - { label: "Hosting-Text (Datenschutz)",  name: "datenschutz_hosting",  widget: "text" }
+          - { label: "Formular-Text (Datenschutz)", name: "datenschutz_formular", widget: "text" }
