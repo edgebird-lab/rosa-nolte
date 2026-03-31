@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════
     Fotografie Portfolio - Rosa Nolte
-    Layout: Top-Navigation (Horizontal)
+    Layout: Top-Navigation & 2-Spalten-Grid (Originalformate)
    ═══════════════════════════════════════════════ */
 
 /* ─── CUSTOM PROPERTIES ─────────────────────── */
@@ -11,7 +11,7 @@
   --text:         #212529;
   --text-muted:   #6C757D;
   --text-faint:   #ADB5BD;
-  --nav-height:   80px; /* Höhe der Navigation oben */
+  --nav-height:   90px; /* Höhe der Navigation oben */
 
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-sans:    'Outfit', system-ui, sans-serif;
@@ -38,7 +38,7 @@ body {
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; height: auto; }
 
-/* ─── NAVIGATION OBEN (EHEMALS SIDEBAR) ──────── */
+/* ─── NAVIGATION OBEN ────────────────────────── */
 .sidebar {
   position: fixed;
   top: 0; left: 0;
@@ -53,101 +53,96 @@ img { max-width: 100%; display: block; height: auto; }
 
 .sidebar-inner {
   display: flex;
-  flex-direction: row; /* Horizontal ausrichten */
+  flex-direction: row;
   align-items: center;
-  justify-content: space-between; /* Name links, Menü rechts */
+  justify-content: space-between;
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 2.5rem;
 }
 
 /* Brand / Name */
 .sidebar-brand { margin-bottom: 0; }
 
-.brand-link { display: flex; align-items: baseline; gap: 0.5rem; }
+.brand-link { display: flex; align-items: baseline; gap: 0.6rem; }
 
 .brand-vorname, .brand-nachname {
   font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: var(--text);
-  display: inline;
+  font-weight: 300;
 }
 
 .brand-subtitle {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   color: var(--text-faint);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
 }
 
 /* Menü-Links */
 .sidebar-nav { margin-bottom: 0; }
-
-.sidebar-nav ul { 
-  display: flex; 
-  gap: 2rem; 
-  list-style: none; 
-}
+.sidebar-nav ul { display: flex; gap: 2.5rem; list-style: none; }
 
 .nav-link {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   color: var(--text-muted);
   transition: color var(--transition);
 }
 
-.nav-link:hover { color: var(--text); }
+.nav-link:hover, .nav-link--active { color: var(--text); }
 
-/* Verstecke Elemente, die oben nicht gebraucht werden */
-.sidebar-divider, .sidebar-social, .sidebar-credit, .sidebar-close {
-  display: none;
-}
+/* Ausgeblendete Elemente aus dem alten Sidebar-Layout */
+.sidebar-divider, .sidebar-social, .sidebar-credit, .sidebar-close { display: none; }
 
 /* ─── HAUPTINHALT ────────────────────────────── */
-.layout {
-  display: block; /* Kein Grid mehr nötig */
-}
+.layout { display: block; }
 
 .main-content {
   margin-left: 0;
-  padding-top: var(--nav-height); /* Platz für die fixierte Nav lassen */
+  padding-top: var(--nav-height); /* Platz für die Nav freihalten */
   min-height: 100vh;
 }
 
-/* ─── PROJEKTE / GALERIE ─────────────────────── */
-.projekte-page, .galerie-page {
-  padding: 3rem 2rem;
+/* ─── GALERIE-SEITE ──────────────────────────── */
+.galerie-page {
+  padding: 4rem 2.5rem;
   max-width: 1400px;
   margin: 0 auto;
 }
 
+.galerie-header {
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: baseline;
+  gap: 2rem;
+}
+
+.galerie-titel {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  color: var(--text);
+}
+
+/* Das strikte 2-Spalten-Grid */
 .galerie-grid {
-  columns: 3 250px;
-  column-gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Genau 2 Spalten */
+  gap: 30px; /* Abstand zwischen den Bildern */
+  align-items: start; /* Bilder oben bündig ausrichten */
 }
 
 .galerie-item {
-  break-inside: avoid;
-  margin-bottom: 10px;
+  width: 100%;
+  position: relative;
 }
 
 .galerie-item img {
   width: 100%;
-  height: auto;
-  transform: translateZ(0); /* Rendering-Fix */
-}
-
-/* ─── RESPONSIVE ─────────────────────────────── */
-.burger-btn { display: none; } /* Vorerst deaktiviert für sauberes Top-Menü */
-
-@media (max-width: 768px) {
-  .sidebar-inner { padding: 0 1rem; }
-  .brand-subtitle { display: none; } /* Platz sparen auf Handy */
-  .sidebar-nav ul { gap: 1rem; }
-  .nav-link { font-size: 0.65rem; }
-  .galerie-grid { columns: 2 150px; }
-}
+  height: auto; /* Original-Proportionen beibehalten */
