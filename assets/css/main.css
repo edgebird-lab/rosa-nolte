@@ -1,22 +1,17 @@
 /* ═══════════════════════════════════════════════
     Fotografie Portfolio - Rosa Nolte
-    Korrektur: Layout-Reflow & Rendering Fix
+    Layout: Top-Navigation (Horizontal)
    ═══════════════════════════════════════════════ */
 
 /* ─── CUSTOM PROPERTIES ─────────────────────── */
 :root {
-  --bg:           #FFFFFF; /* Korrigiert: Nur eine Raute */
-  --bg-sidebar:   #F8F9FA;
-  --bg-hover:     #E9ECEF;
+  --bg:           #FFFFFF;
+  --bg-nav:       #F8F9FA;
   --border:       #DEE2E6;
-
   --text:         #212529;
   --text-muted:   #6C757D;
   --text-faint:   #ADB5BD;
-
-  --accent:       #007BFF;
-
-  --sidebar-w:    260px;
+  --nav-height:   80px; /* Höhe der Navigation oben */
 
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-sans:    'Outfit', system-ui, sans-serif;
@@ -38,413 +33,121 @@ body {
   font-weight: 300;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
 
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; height: auto; }
-button { cursor: pointer; border: none; background: none; font: inherit; color: inherit; }
 
-/* ─── ZWEI-SPALTEN LAYOUT ────────────────────── */
-.layout {
-  display: grid;
-  grid-template-columns: var(--sidebar-w) 1fr;
-  min-height: 100vh;
-}
-
-/* ─── SIDEBAR ────────────────────────────────── */
+/* ─── NAVIGATION OBEN (EHEMALS SIDEBAR) ──────── */
 .sidebar {
   position: fixed;
   top: 0; left: 0;
-  width: var(--sidebar-w);
-  height: 100vh;
-  overflow-y: auto;
-  border-right: 1px solid var(--border);
-  background: var(--bg-sidebar);
-  z-index: 50;
-  transition: transform var(--transition);
+  width: 100%;
+  height: var(--nav-height);
+  background: var(--bg-nav);
+  border-bottom: 1px solid var(--border);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
 }
 
 .sidebar-inner {
   display: flex;
-  flex-direction: column;
-  padding: 3rem 2rem;
-  min-height: 100%;
+  flex-direction: row; /* Horizontal ausrichten */
+  align-items: center;
+  justify-content: space-between; /* Name links, Menü rechts */
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
-.sidebar-close {
-  display: none;
-  align-self: flex-end;
-  font-size: 1rem;
-  color: var(--text-muted);
-  margin-bottom: 2rem;
-  padding: 0.25rem;
-}
+/* Brand / Name */
+.sidebar-brand { margin-bottom: 0; }
 
-/* Brand */
-.sidebar-brand { margin-bottom: 3rem; }
+.brand-link { display: flex; align-items: baseline; gap: 0.5rem; }
 
-.brand-link {
-  display: block;
-  margin-bottom: 0.4rem;
-}
-
-.brand-vorname,
-.brand-nachname {
-  display: block;
+.brand-vorname, .brand-nachname {
   font-family: var(--font-display);
-  font-weight: 300;
-  font-size: 1.35rem;
-  line-height: 1.15;
+  font-size: 1.2rem;
   color: var(--text);
-  letter-spacing: 0.02em;
+  display: inline;
 }
 
 .brand-subtitle {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.6rem;
   color: var(--text-faint);
-  letter-spacing: 0.12em;
   text-transform: uppercase;
-  margin-top: 0.5rem;
+  letter-spacing: 0.1em;
 }
 
-/* Navigation */
-.sidebar-nav { margin-bottom: 1.5rem; }
-.sidebar-nav ul { list-style: none; }
-.sidebar-nav li + li { margin-top: 0.15rem; }
+/* Menü-Links */
+.sidebar-nav { margin-bottom: 0; }
+
+.sidebar-nav ul { 
+  display: flex; 
+  gap: 2rem; 
+  list-style: none; 
+}
 
 .nav-link {
-  display: block;
-  padding: 0.35rem 0;
   font-family: var(--font-mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
+  font-size: 0.75rem;
   text-transform: uppercase;
-  transition: color var(--transition);
-}
-
-.nav-link:hover,
-.nav-link--active {
-  color: var(--text);
-}
-
-.sidebar-nav--secondary .nav-link {
-  font-size: 0.72rem;
-  color: var(--text-faint);
-}
-
-.sidebar-nav--secondary .nav-link:hover {
-  color: var(--text-muted);
-}
-
-.sidebar-divider {
-  height: 1px;
-  background: var(--border);
-  margin: 1rem 0 1.5rem;
-}
-
-/* Social */
-.sidebar-social {
-  display: flex;
-  gap: 1rem;
-  margin-top: auto;
-  padding-top: 2rem;
-}
-
-.sidebar-social a {
-  color: var(--text-faint);
-  transition: color var(--transition);
-}
-
-.sidebar-social a:hover { color: var(--text); }
-
-/* Credit */
-.sidebar-credit {
-  margin-top: 1.25rem;
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  color: var(--text-faint);
   letter-spacing: 0.05em;
+  color: var(--text-muted);
+  transition: color var(--transition);
 }
 
-.sidebar-credit a { color: var(--text-faint); }
-.sidebar-credit a:hover { color: var(--text-muted); }
+.nav-link:hover { color: var(--text); }
+
+/* Verstecke Elemente, die oben nicht gebraucht werden */
+.sidebar-divider, .sidebar-social, .sidebar-credit, .sidebar-close {
+  display: none;
+}
 
 /* ─── HAUPTINHALT ────────────────────────────── */
+.layout {
+  display: block; /* Kein Grid mehr nötig */
+}
+
 .main-content {
-  /* KORREKTUR: margin-left entfernt, da das Grid die Spalte bereits reserviert */
+  margin-left: 0;
+  padding-top: var(--nav-height); /* Platz für die fixierte Nav lassen */
   min-height: 100vh;
-  width: 100%;
 }
 
-/* ─── BURGER (NUR MOBILE) ────────────────────── */
-.burger-btn {
-  display: none;
-  position: fixed;
-  top: 1.25rem;
-  left: 1.25rem;
-  z-index: 200;
-  flex-direction: column;
-  gap: 5px;
-  padding: 10px;
-  background: rgba(12,12,12,0.9);
-  border-radius: var(--radius);
+/* ─── PROJEKTE / GALERIE ─────────────────────── */
+.projekte-page, .galerie-page {
+  padding: 3rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-.burger-btn span {
-  display: block;
-  width: 20px; height: 1.5px;
-  background: #fff;
-  transition: all var(--transition);
-}
-
-.sidebar-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  z-index: 40;
-}
-
-/* ─── PROJEKTE / STARTSEITE ──────────────────── */
-.projekte-page {
-  padding: 3.5rem 3rem 3rem;
-}
-
-.projekte-header {
-  margin-bottom: 2rem;
-}
-
-.projekte-label,
-.about-label {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--text-faint);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.kategorien-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 3px;
-}
-
-.kategorie-kachel:first-child {
-  grid-column: 1 / -1;
-}
-
-.kategorie-kachel {
-  position: relative;
-  display: block;
-  overflow: hidden;
-  aspect-ratio: 3/2;
-  background: #161616;
-}
-
-.kategorie-kachel:first-child {
-  aspect-ratio: 16/7;
-}
-
-.kachel-img-wrap {
-  position: absolute;
-  inset: 0;
-}
-
-.kachel-img-wrap img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-}
-
-.kachel-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 1.5rem;
-  background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
-}
-
-.kachel-name {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: 1.6rem;
-  color: #fff;
-  letter-spacing: 0.02em;
-}
-
-.kachel-desc {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: rgba(255,255,255,0.6);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-top: 0.4rem;
-  opacity: 0;
-  transform: translateY(6px);
-  transition: all 0.3s ease;
-}
-
-.kategorie-kachel:hover .kachel-img-wrap img { transform: scale(1.04); }
-.kategorie-kachel:hover .kachel-desc { opacity: 1; transform: translateY(0); }
-
-/* ─── GALERIE-SEITE ──────────────────────────── */
-.galerie-page {
-  padding: 3.5rem 3rem 4rem;
-}
-
-.galerie-header {
-  display: flex;
-  align-items: baseline;
-  gap: 1.5rem;
-  margin-bottom: 2.5rem;
-}
-
-.zurueck-link {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--text-faint);
-  text-transform: uppercase;
-}
-
-.galerie-titel {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  color: var(--text);
-}
-
-/* Masonry Grid */
 .galerie-grid {
-  columns: 3 200px;
-  column-gap: 3px;
+  columns: 3 250px;
+  column-gap: 10px;
 }
 
 .galerie-item {
   break-inside: avoid;
-  margin-bottom: 3px;
-  position: relative;
-  overflow: hidden;
+  margin-bottom: 10px;
 }
 
 .galerie-item img {
   width: 100%;
   height: auto;
-  display: block;
-  transition: opacity var(--transition);
-  /* KORREKTUR: Erzwingt sofortiges Rendering */
-  transform: translateZ(0); 
-  backface-visibility: hidden;
-}
-
-.galerie-item:hover img { opacity: 0.88; }
-
-.galerie-caption {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  color: var(--text-faint);
-  padding: 0.4rem 0.1rem;
-}
-
-/* ─── LIGHTBOX ───────────────────────────────── */
-.lightbox {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.95);
-  z-index: 500;
-  align-items: center;
-  justify-content: center;
-}
-
-.lightbox.open { display: flex; }
-
-.lightbox-img-wrap img {
-  max-width: 90vw;
-  max-height: 85vh;
-  object-fit: contain;
-}
-
-/* ─── ÜBER MICH ──────────────────────────────── */
-.about-page { padding: 3.5rem 3rem 4rem; }
-
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  max-width: 900px;
-}
-
-.about-portrait {
-  width: 100%;
-  aspect-ratio: 3/4;
-  object-fit: cover;
-  border-radius: var(--radius);
-  background: #161616;
-}
-
-.about-name {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  color: var(--text);
-  margin: 0.75rem 0 2rem;
-}
-
-.about-body p {
-  color: var(--text-muted);
-  font-size: 0.95rem;
-  line-height: 1.8;
-  margin-bottom: 1rem;
-}
-
-/* ─── KONTAKT ────────────────────────────────── */
-.kontakt-page { padding: 3.5rem 3rem 4rem; min-height: 100vh; }
-
-.kontakt-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 5rem;
-  max-width: 900px;
-}
-
-input, textarea {
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--border);
-  padding: 0.6rem 0;
-  color: var(--text);
-  width: 100%;
-  outline: none;
+  transform: translateZ(0); /* Rendering-Fix */
 }
 
 /* ─── RESPONSIVE ─────────────────────────────── */
-@media (max-width: 900px) {
-  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-  .about-portrait { max-width: 320px; aspect-ratio: 1; }
-  .kontakt-grid { grid-template-columns: 1fr; gap: 3rem; }
-}
+.burger-btn { display: none; } /* Vorerst deaktiviert für sauberes Top-Menü */
 
 @media (max-width: 768px) {
-  .sidebar { transform: translateX(-100%); width: 80vw; max-width: 300px; }
-  .sidebar.open { transform: translateX(0); }
-  .sidebar-close { display: flex; }
-  .burger-btn { display: flex; }
-  .main-content { margin-left: 0; } /* Korrekt auf Mobile */
-  .layout { grid-template-columns: 1fr; }
-  .projekte-page, .galerie-page, .about-page, .kontakt-page { padding: 4.5rem 1.25rem 3rem; }
-  .kategorien-grid { grid-template-columns: 1fr; }
+  .sidebar-inner { padding: 0 1rem; }
+  .brand-subtitle { display: none; } /* Platz sparen auf Handy */
+  .sidebar-nav ul { gap: 1rem; }
+  .nav-link { font-size: 0.65rem; }
   .galerie-grid { columns: 2 150px; }
-}
-
-@media (max-width: 480px) {
-  .galerie-grid { columns: 1; }
 }
